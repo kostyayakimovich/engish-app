@@ -1,0 +1,10 @@
+.login {
+ .logo {
+  width: 120px;
+  height: 80px;
+ }
+ &__link {
+  cursor: pointer;
+  text-decoration: underline;
+ }
+}
