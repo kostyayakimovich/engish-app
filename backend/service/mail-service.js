@@ -7,15 +7,15 @@ class MailService {
    port: process.env.SMTP_PORT,
    secure: true,
    auth: {
-    user: "kanstantsin.yakimovich@mail.ru",
-    pass: "DFgmy7xkQVwqj3psdyJd",
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASSWORD,
    },
   });
  }
 
  async sendActivationMail(to, link) {
   await this.transporter.sendMail({
-   from: "kanstantsin.yakimovich@mail.ru",
+   from: process.env.SMTP_USER,
    to,
    subject: "Account activation for " + process.env.API_URL,
    text: "",
