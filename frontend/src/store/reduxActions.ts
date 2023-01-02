@@ -1,1 +1,1 @@
-export * from './slices/authorization';
+export * from "./slices/authorization";

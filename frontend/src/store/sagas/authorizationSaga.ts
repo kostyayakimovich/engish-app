@@ -94,26 +94,11 @@ function* checkAuthSagaHandler(): any {
  }
 }
 
-function* getUsersSagaHandler(): any {
- try {
-  yield put(errorServer(null));
-  try {
-   const response: any = yield call(api.getUsers);
-   console.log(response, "responsegetUsers");
-  } catch (error) {
-   yield put(errorServer("Error server auth error"));
-  }
- } catch (error) {
-  yield put(errorServer(error));
- }
-}
-
 function* authorizationSagaWatcher() {
  yield takeEvery(authorizationTypeActions.LOG_IN, loginSagaHandler);
  yield takeEvery(authorizationTypeActions.REG, registerSagaHandler);
  yield takeEvery(authorizationTypeActions.LOGOUT, logoutSagaHandler);
  yield takeEvery(authorizationTypeActions.CHECK_AUTH, checkAuthSagaHandler);
- yield takeEvery(authorizationTypeActions.GET_USERS, getUsersSagaHandler);
 }
 
 export default fork(authorizationSagaWatcher);

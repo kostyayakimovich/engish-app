@@ -1,12 +1,21 @@
 import { AuthorizationActionCreater } from "./models";
 import { getCookie } from "react-use-cookie";
+import {
+ addWordActionCreater,
+ editWordActionCreater,
+ getWordsActionCreater,
+ removeWordActionCreater,
+} from "./models/words.model";
 export const API_URL = "http://localhost:5000/api";
 
 const loginUrl = `${API_URL}/login`;
 const registerUrl = `${API_URL}/registration`;
 const logoutUrl = `${API_URL}/logout`;
 const refreshUrl = `${API_URL}/refresh`;
-const userUrl = `${API_URL}/users`;
+const getWordsUrl = `${API_URL}/get-words`;
+const addWordUrl = `${API_URL}/add-words`;
+const editWordUrl = `${API_URL}/edit-words`;
+const removeWordUrl = `${API_URL}/remove-words`;
 const headerConfig = {
  "Content-Type": "application/json",
  "Access-Control-Allow-Origin": "*",
@@ -51,9 +60,40 @@ const api = {
   return details;
  },
 
- getUsers: async () => {
-  const response = await fetch(userUrl, {
-   method: "GET",
+ getWords: async (data: getWordsActionCreater) => {
+  const response = await fetch(getWordsUrl, {
+   method: "POST",
+   body: JSON.stringify(data),
+   headers: { ...headerConfig },
+  });
+  const details = await response.json();
+  return details;
+ },
+
+ addWord: async (data: addWordActionCreater) => {
+  const response = await fetch(addWordUrl, {
+   method: "POST",
+   body: JSON.stringify(data),
+   headers: { ...headerConfig },
+  });
+  const details = await response.json();
+  return details;
+ },
+
+ editWord: async (data: editWordActionCreater) => {
+  const response = await fetch(editWordUrl, {
+   method: "POST",
+   body: JSON.stringify(data),
+   headers: { ...headerConfig },
+  });
+  const details = await response.json();
+  return details;
+ },
+
+ removeWord: async (data: removeWordActionCreater) => {
+  const response = await fetch(removeWordUrl, {
+   method: "POST",
+   body: JSON.stringify(data),
    headers: { ...headerConfig },
   });
   const details = await response.json();

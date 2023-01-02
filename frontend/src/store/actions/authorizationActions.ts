@@ -6,7 +6,6 @@ export const authorizationTypeActions = {
  REG: "REG",
  LOGOUT: "LOGOUT",
  CHECK_AUTH: "CHECK_AUTH",
- GET_USERS: "GET_USERS",
 };
 
 const logIn = createAction(
@@ -25,16 +24,13 @@ const register = createAction(
  })
 );
 
-const logout = createAction(authorizationTypeActions.REG);
+const logout = createAction(authorizationTypeActions.LOGOUT);
 
 const checkAuth = createAction(authorizationTypeActions.CHECK_AUTH);
-
-const getUsers = createAction(authorizationTypeActions.GET_USERS);
 
 export const authorizationActions = {
  logIn,
  register,
  logout,
  checkAuth,
- getUsers,
 };
