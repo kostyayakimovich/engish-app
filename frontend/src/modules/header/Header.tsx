@@ -1,4 +1,4 @@
-import React, { memo, useCallback } from "react";
+import React, { memo, useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -13,6 +13,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { RootState } from "../../store/store";
 import { authorizationActions } from "../../store/actions/authorizationActions";
+import AddForm from "../../modals/add-modal";
 
 const links = ["Add words"];
 const settings = ["Logout"];
@@ -23,6 +24,7 @@ const Header: React.FunctionComponent = memo(() => {
  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
   null
  );
+ const [isOpenModalAdd, setIsOpenModalAdd] = useState(false);
 
  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
   setAnchorElNav(event.currentTarget);
@@ -37,6 +39,13 @@ const Header: React.FunctionComponent = memo(() => {
 
  const handleCloseUserMenu = () => {
   setAnchorElUser(null);
+ };
+
+ const handleClickLink = (link: string) => {
+  if (link === "Add words") {
+   setIsOpenModalAdd(!isOpenModalAdd);
+  }
+  handleCloseNavMenu();
  };
 
  const handleClickSettings = useCallback(
@@ -101,7 +110,7 @@ const Header: React.FunctionComponent = memo(() => {
         }}
        >
         {links.map((link) => (
-         <MenuItem key={link} onClick={handleCloseNavMenu}>
+         <MenuItem key={link} onClick={() => handleClickLink(link)}>
           <Typography textAlign="center">{link}</Typography>
          </MenuItem>
         ))}
@@ -111,7 +120,7 @@ const Header: React.FunctionComponent = memo(() => {
        {links.map((link) => (
         <Button
          key={link}
-         onClick={handleCloseNavMenu}
+         onClick={() => handleClickLink(link)}
          sx={{ my: 2, color: "white", display: "block" }}
         >
          {link}
@@ -159,6 +168,7 @@ const Header: React.FunctionComponent = memo(() => {
      </Toolbar>
     </Container>
    </AppBar>
+   <AddForm isOpenModal={isOpenModalAdd} setIsOpenModal={setIsOpenModalAdd} />
   </header>
  );
 });

@@ -1,0 +1,45 @@
+@import "./assets/styles/variables.scss";
+body {
+ margin: 0;
+ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+  "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+ -webkit-font-smoothing: antialiased;
+ -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+ font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+ padding: 0;
+ margin: 0;
+}
+
+.modal-dialog {
+ position: fixed;
+ top: 50%;
+ left: 50%;
+ transform: translate(-50%, -50%);
+ background: $color-light-gray;
+ border: 1px solid $color-border-light-gray;
+ overflow: auto;
+ border-radius: 4px;
+ outline: none;
+ padding: 24px 24px 40px;
+ width: 600px;
+}
+@media screen and (max-width: 700px) {
+ .modal-dialog {
+  width: 430px;
+ }
+}
+@media screen and (max-width: 500px) {
+ .modal-dialog {
+  width: 280px;
+ }
+}

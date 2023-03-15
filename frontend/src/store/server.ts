@@ -6,7 +6,7 @@ import {
  getWordsActionCreater,
  removeWordActionCreater,
 } from "./models/words.model";
-export const API_URL = "http://localhost:5000/api";
+export const API_URL = "http://localhost:5001/api";
 
 const loginUrl = `${API_URL}/login`;
 const registerUrl = `${API_URL}/registration`;
@@ -16,6 +16,7 @@ const getWordsUrl = `${API_URL}/get-words`;
 const addWordUrl = `${API_URL}/add-words`;
 const editWordUrl = `${API_URL}/edit-words`;
 const removeWordUrl = `${API_URL}/remove-words`;
+
 const headerConfig = {
  "Content-Type": "application/json",
  "Access-Control-Allow-Origin": "*",
@@ -76,6 +77,7 @@ const api = {
    body: JSON.stringify(data),
    headers: { ...headerConfig },
   });
+
   const details = await response.json();
   return details;
  },
