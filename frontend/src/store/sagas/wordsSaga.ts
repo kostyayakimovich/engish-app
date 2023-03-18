@@ -11,8 +11,8 @@ function* getWordsSagaHandler(action: WordsActionSaga): any {
   yield put(errorServer(null));
   try {
    const response: any = yield call(api.getWords, action.payload);
-   if (response?.data) {
-    yield put(wordsData(response.data));
+   if (response) {
+    yield put(wordsData(response));
    } else if (response?.message) {
     yield put(errorServer(response.message));
    }

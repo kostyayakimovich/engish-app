@@ -1,8 +1,9 @@
 import { createAction } from "redux-actions";
 import {
- addWordActionCreater,
- editWordActionCreater,
- getWordsActionCreater,
+ AddWordActionCreater,
+ EditWordActionCreater,
+ GetWordsActionCreater,
+ RemoveWordActionCreater,
 } from "../models/words.model";
 
 export const wordsTypeActions = {
@@ -14,14 +15,14 @@ export const wordsTypeActions = {
 
 const getWords = createAction(
  wordsTypeActions.GET_WORDS,
- ({ userId }: getWordsActionCreater) => ({
+ ({ userId }: GetWordsActionCreater) => ({
   userId,
  })
 );
 
 const addWord = createAction(
  wordsTypeActions.ADD_WORD,
- ({ userId, word, wordTranslate }: addWordActionCreater) => ({
+ ({ userId, word, wordTranslate }: AddWordActionCreater) => ({
   userId,
   word,
   wordTranslate,
@@ -30,7 +31,7 @@ const addWord = createAction(
 
 const editWord = createAction(
  wordsTypeActions.EDIT_WORD,
- ({ userId, wordId, newWord, newWordTranslate }: editWordActionCreater) => ({
+ ({ userId, wordId, newWord, newWordTranslate }: EditWordActionCreater) => ({
   userId,
   wordId,
   newWord,
@@ -39,8 +40,8 @@ const editWord = createAction(
 );
 
 const removeWord = createAction(
- wordsTypeActions.EDIT_WORD,
- ({ userId, wordId }: editWordActionCreater) => ({
+ wordsTypeActions.REMOVE_WORD,
+ ({ userId, wordId }: RemoveWordActionCreater) => ({
   userId,
   wordId,
  })

@@ -5,7 +5,7 @@ const wordsSlice = createSlice({
  initialState: {
   isLoading: false,
   errorServer: null,
-  wordsData: null,
+  wordsData: [],
  },
  reducers: {
   errorServer: (state, action) => {
@@ -15,7 +15,7 @@ const wordsSlice = createSlice({
    state.isLoading = action.payload;
   },
   wordsData: (state, action) => {
-   state.wordsData = action.payload;
+  state.wordsData = action.payload;
   },
  },
 });

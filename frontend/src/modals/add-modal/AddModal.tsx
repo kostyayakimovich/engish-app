@@ -1,16 +1,20 @@
-import React, { memo } from "react";
+import React, { memo, useEffect } from "react";
 import Modal from "react-modal";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik, Form, Field } from "formik";
 import { TextField, Button, Stack } from "@mui/material";
 import Close from "../../assets/images/icon-close.svg";
 import { wordsActions } from "../../store/actions/wordsActions";
-import "./style.scss";
 import { RootState } from "../../store/store";
+import { ChangeWordData } from "../../store/models/pages.model";
+
+import "./style.scss";
 
 interface ModalAddProps {
  isOpenModal: boolean;
  setIsOpenModal: (value: boolean) => void;
+ editData: ChangeWordData | null;
+ setChangeWordData: (value: ChangeWordData | null) => void;
 }
 
 interface FormValues {
@@ -19,32 +23,46 @@ interface FormValues {
 }
 
 const AddModal: React.FunctionComponent<ModalAddProps> = memo(
- ({ isOpenModal, setIsOpenModal }) => {
+ ({ isOpenModal, setIsOpenModal, editData, setChangeWordData }) => {
   const closeModal = () => {
    setIsOpenModal(false);
   };
 
   const dispatch = useDispatch();
   const { user } = useSelector((state: RootState) => state.authorization);
-  const initialValues: FormValues = { word: "", wordTranslate: "" };
+  const initialValues: FormValues = {
+   word: editData ? editData.word : "",
+   wordTranslate: editData ? editData.wordTranslate : "",
+  };
 
-  const handleSubmit = (values: FormValues) => {
-   if (user && user["id"]) {
+  const handleSubmit = ({ word, wordTranslate }: FormValues) => {
+   if (user && user["id"] && !editData) {
     dispatch(
      wordsActions.addWord({
-      word: values.word,
-      wordTranslate: values.wordTranslate,
+      word: word,
+      wordTranslate: wordTranslate,
       userId: user["id"],
      })
     );
+   } else if (user && user["id"] && editData) {
+    dispatch(
+     wordsActions.editWord({
+      newWord: word,
+      newWordTranslate: wordTranslate,
+      userId: user["id"],
+      wordId: editData.wordId,
+     })
+    );
    }
-
+   setChangeWordData(null);
    setIsOpenModal(false);
   };
 
   const textFieldStyles = {
    width: "100%",
   };
+
+  useEffect(() => () => setChangeWordData(null));
 
   return (
    <Modal
@@ -57,13 +75,8 @@ const AddModal: React.FunctionComponent<ModalAddProps> = memo(
    >
     <div className="modal-add-container">
      <header className="modal-add-header">
-      <h3 className="modal-add-header__title">Add Word</h3>
-      <img
-       className="modal-add-header__icon"
-       src={Close}
-       alt="close"
-       onClick={closeModal}
-      />
+      <h3 className="modal-add-header__title">{editData ? "Edit Word" : "Add Word"}</h3>
+      <img className="modal-add-header__icon" src={Close} alt="close" onClick={closeModal} />
      </header>
      <section className="modal-add__content">
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
@@ -89,7 +102,7 @@ const AddModal: React.FunctionComponent<ModalAddProps> = memo(
            style={textFieldStyles}
           />
           <Button variant="contained" type="submit">
-           Submit
+           {editData ? "Edit word" : "Add new word"}
           </Button>
          </Stack>
         </Form>

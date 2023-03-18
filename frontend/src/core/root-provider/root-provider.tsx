@@ -24,14 +24,9 @@ const RootProvider = () => {
  return (
   <div className="root-provider">
    <Routes>
-    <Route
-     path="/login"
-     element={page === Pages.Login ? <Login /> : <Navigate to="/" />}
-    />
-    <Route
-     path="/"
-     element={page === Pages.Home ? <Home /> : <Navigate to="/login" />}
-    />
+    {!page && <Route path="/" element={<></>} />}
+    <Route path="/login" element={page === Pages.Login ? <Login /> : <Navigate to="/" />} />
+    <Route path="/" element={page === Pages.Home ? <Home /> : <Navigate to="/login" />} />
     <Route path="*" element={<ErrorPage />} />
    </Routes>
   </div>

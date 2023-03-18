@@ -1,21 +1,21 @@
 import { AuthorizationActionCreater } from "./models";
 import { getCookie } from "react-use-cookie";
 import {
- addWordActionCreater,
- editWordActionCreater,
- getWordsActionCreater,
- removeWordActionCreater,
+ AddWordActionCreater,
+ EditWordActionCreater,
+ GetWordsActionCreater,
+ RemoveWordActionCreater,
 } from "./models/words.model";
-export const API_URL = "http://localhost:5001/api";
+export const API_URL = "http://localhost:5000/api";
 
 const loginUrl = `${API_URL}/login`;
 const registerUrl = `${API_URL}/registration`;
 const logoutUrl = `${API_URL}/logout`;
 const refreshUrl = `${API_URL}/refresh`;
 const getWordsUrl = `${API_URL}/get-words`;
-const addWordUrl = `${API_URL}/add-words`;
-const editWordUrl = `${API_URL}/edit-words`;
-const removeWordUrl = `${API_URL}/remove-words`;
+const addWordUrl = `${API_URL}/add-word`;
+const editWordUrl = `${API_URL}/edit-word`;
+const removeWordUrl = `${API_URL}/remove-word`;
 
 const headerConfig = {
  "Content-Type": "application/json",
@@ -61,7 +61,7 @@ const api = {
   return details;
  },
 
- getWords: async (data: getWordsActionCreater) => {
+ getWords: async (data: GetWordsActionCreater) => {
   const response = await fetch(getWordsUrl, {
    method: "POST",
    body: JSON.stringify(data),
@@ -71,7 +71,7 @@ const api = {
   return details;
  },
 
- addWord: async (data: addWordActionCreater) => {
+ addWord: async (data: AddWordActionCreater) => {
   const response = await fetch(addWordUrl, {
    method: "POST",
    body: JSON.stringify(data),
@@ -82,7 +82,7 @@ const api = {
   return details;
  },
 
- editWord: async (data: editWordActionCreater) => {
+ editWord: async (data: EditWordActionCreater) => {
   const response = await fetch(editWordUrl, {
    method: "POST",
    body: JSON.stringify(data),
@@ -92,7 +92,7 @@ const api = {
   return details;
  },
 
- removeWord: async (data: removeWordActionCreater) => {
+ removeWord: async (data: RemoveWordActionCreater) => {
   const response = await fetch(removeWordUrl, {
    method: "POST",
    body: JSON.stringify(data),
