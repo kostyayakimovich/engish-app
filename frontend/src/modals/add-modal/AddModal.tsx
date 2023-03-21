@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from "react";
+import React, { memo } from "react";
 import Modal from "react-modal";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik, Form, Field } from "formik";
@@ -14,7 +14,6 @@ interface ModalAddProps {
  isOpenModal: boolean;
  setIsOpenModal: (value: boolean) => void;
  editData: ChangeWordData | null;
- setChangeWordData: (value: ChangeWordData | null) => void;
 }
 
 interface FormValues {
@@ -23,7 +22,7 @@ interface FormValues {
 }
 
 const AddModal: React.FunctionComponent<ModalAddProps> = memo(
- ({ isOpenModal, setIsOpenModal, editData, setChangeWordData }) => {
+ ({ isOpenModal, setIsOpenModal, editData }) => {
   const closeModal = () => {
    setIsOpenModal(false);
   };
@@ -54,15 +53,12 @@ const AddModal: React.FunctionComponent<ModalAddProps> = memo(
      })
     );
    }
-   setChangeWordData(null);
    setIsOpenModal(false);
   };
 
   const textFieldStyles = {
    width: "100%",
   };
-
-  useEffect(() => () => setChangeWordData(null));
 
   return (
    <Modal

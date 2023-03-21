@@ -13,11 +13,10 @@ interface ModalDeleteProps {
  isOpenModal: boolean;
  setIsOpenModal: (value: boolean) => void;
  deleteData: ChangeWordData;
- setChangeWordData: (value: ChangeWordData | null) => void;
 }
 
 const DeleteModal: React.FunctionComponent<ModalDeleteProps> = memo(
- ({ isOpenModal, setIsOpenModal, deleteData, setChangeWordData }) => {
+ ({ isOpenModal, setIsOpenModal, deleteData }) => {
   const closeModal = () => {
    setIsOpenModal(false);
   };
@@ -34,11 +33,10 @@ const DeleteModal: React.FunctionComponent<ModalDeleteProps> = memo(
        userId: user["id"],
       })
      );
-     setChangeWordData(null);
      setIsOpenModal(false);
     }
    },
-   [user, setIsOpenModal, dispatch, setChangeWordData]
+   [user, setIsOpenModal, dispatch]
   );
 
   return (

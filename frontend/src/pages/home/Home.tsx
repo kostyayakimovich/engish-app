@@ -14,7 +14,8 @@ import "./style.scss";
 const Home: React.FunctionComponent = memo(() => {
  const [isOpenModalAdd, setIsOpenModalAdd] = useState(false);
  const [isOpenModalDelete, setIsOpenModalDelete] = useState(false);
- const [chageWordData, setChangeWordData] = useState<ChangeWordData | null>(null);
+ const [editData, setEditData] = useState<ChangeWordData | null>(null);
+ const [deleteData, setDeleteData] = useState<ChangeWordData | null>(null);
  const [isFlipped, setIsFlipped] = useState(false);
  const [flippedCard, setFlippedCard] = useState("");
  const dispatch = useDispatch();
@@ -28,24 +29,31 @@ const Home: React.FunctionComponent = memo(() => {
 
  const handleEdit = useCallback(
   (data: ChangeWordData) => {
-   setChangeWordData(data);
+   setEditData(data);
    setIsOpenModalAdd(!isOpenModalAdd);
   },
   [isOpenModalAdd]
  );
  const handleDelete = useCallback(
   (data: ChangeWordData) => {
-   setChangeWordData(data);
+   setDeleteData(data);
    setIsOpenModalDelete(!isOpenModalDelete);
   },
   [isOpenModalDelete]
  );
 
  useEffect(() => {
-  if (user && !chageWordData && !isOpenModalAdd && !isOpenModalDelete) {
+  if (!isOpenModalDelete) setDeleteData(null);
+ }, [isOpenModalDelete]);
+ useEffect(() => {
+  if (!isOpenModalAdd) setEditData(null);
+ }, [isOpenModalAdd]);
+
+ useEffect(() => {
+  if (user && !editData && !deleteData && !isOpenModalAdd && !isOpenModalDelete) {
    dispatch(wordsActions.getWords({ userId: user["id"] }));
   }
- }, [dispatch, user, chageWordData, isOpenModalAdd, isOpenModalDelete]);
+ }, [dispatch, user, editData, deleteData, isOpenModalAdd, isOpenModalDelete]);
 
  return (
   <div className="home">
@@ -94,16 +102,10 @@ const Home: React.FunctionComponent = memo(() => {
        ))
      : null}
    </section>
-   <AddModal
-    editData={chageWordData}
-    setChangeWordData={setChangeWordData}
-    isOpenModal={isOpenModalAdd}
-    setIsOpenModal={setIsOpenModalAdd}
-   />
-   {chageWordData && (
+   <AddModal editData={editData} isOpenModal={isOpenModalAdd} setIsOpenModal={setIsOpenModalAdd} />
+   {deleteData && (
     <DeleteModal
-     deleteData={chageWordData}
-     setChangeWordData={setChangeWordData}
+     deleteData={deleteData}
      isOpenModal={isOpenModalDelete}
      setIsOpenModal={setIsOpenModalDelete}
     />
