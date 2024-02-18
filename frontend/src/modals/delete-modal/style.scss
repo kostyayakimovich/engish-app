@@ -1,0 +1,19 @@
+.modal-delete-header {
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+
+ &__icon {
+  cursor: pointer;
+ }
+}
+.modal-delete-actions {
+ width: 100%;
+ padding-top: 40px;
+ display: flex;
+ justify-content: center;
+ &__buttons {
+  display: flex;
+  gap: 40px;
+ }
+}

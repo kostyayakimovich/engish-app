@@ -1,9 +1,9 @@
-import { takeEvery, put, fork, call } from "redux-saga/effects";
-import { wordsTypeActions } from "../actions/wordsActions";
-import { WordsActionSaga } from "../models/words.model";
+import { takeEvery, put, fork, call } from 'redux-saga/effects';
+import { wordsTypeActions } from '../actions/wordsActions';
+import { WordsActionSaga } from '../models/words.model';
 
-import api from "../server";
-import { isLoading, errorServer, wordsData } from "../slices/words";
+import api from '../server';
+import { isLoading, errorServer, wordsData } from '../slices/words';
 
 function* getWordsSagaHandler(action: WordsActionSaga): any {
  try {
@@ -11,13 +11,13 @@ function* getWordsSagaHandler(action: WordsActionSaga): any {
   yield put(errorServer(null));
   try {
    const response: any = yield call(api.getWords, action.payload);
-   if (response?.data) {
-    yield put(wordsData(response.data));
+   if (response) {
+    yield put(wordsData(response));
    } else if (response?.message) {
     yield put(errorServer(response.message));
    }
   } catch (error) {
-   yield put(errorServer("Error server login error"));
+   yield put(errorServer('Error server login error'));
   }
   yield put(isLoading(false));
  } catch (error) {
@@ -35,7 +35,7 @@ function* addWordSagaHandler(action: WordsActionSaga): any {
     yield put(errorServer(response.message));
    }
   } catch (error) {
-   yield put(errorServer("Error server login error"));
+   yield put(errorServer('Error server login error'));
   }
   yield put(isLoading(false));
  } catch (error) {
@@ -53,7 +53,7 @@ function* editWordSagaHandler(action: WordsActionSaga): any {
     yield put(errorServer(response.message));
    }
   } catch (error) {
-   yield put(errorServer("Error server login error"));
+   yield put(errorServer('Error server login error'));
   }
   yield put(isLoading(false));
  } catch (error) {
@@ -71,7 +71,7 @@ function* removeWordSagaHandler(action: WordsActionSaga): any {
     yield put(errorServer(response.message));
    }
   } catch (error) {
-   yield put(errorServer("Error server login error"));
+   yield put(errorServer('Error server login error'));
   }
   yield put(isLoading(false));
  } catch (error) {

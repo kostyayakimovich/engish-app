@@ -1,5 +1,5 @@
-const wordsService = require("../service/words-service");
-const ApiError = require("../exceptions/api-error");
+const wordsService = require('../service/words-service');
+const ApiError = require('../exceptions/api-error');
 
 class WordsController {
  async addWord(req, res, next) {
@@ -25,12 +25,8 @@ class WordsController {
  async editWord(req, res, next) {
   try {
    const { userId, wordId, newWord, newWordTranslate } = req.body;
-   const wordData = await wordsService.editWord(
-    userId,
-    wordId,
-    newWord,
-    newWordTranslate
-   );
+
+   const wordData = await wordsService.editWord(userId, wordId, newWord, newWordTranslate);
    return res.json(wordData);
   } catch (e) {
    next(e);

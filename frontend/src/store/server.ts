@@ -1,12 +1,12 @@
-import { AuthorizationActionCreater } from "./models";
-import { getCookie } from "react-use-cookie";
+import { AuthorizationActionCreater } from './models';
+import { getCookie } from 'react-use-cookie';
 import {
  addWordActionCreater,
  editWordActionCreater,
  getWordsActionCreater,
  removeWordActionCreater,
-} from "./models/words.model";
-export const API_URL = "http://localhost:5001/api";
+} from './models/words.model';
+export const API_URL = 'http://localhost:5001/api';
 
 const loginUrl = `${API_URL}/login`;
 const registerUrl = `${API_URL}/registration`;
@@ -18,15 +18,15 @@ const editWordUrl = `${API_URL}/edit-words`;
 const removeWordUrl = `${API_URL}/remove-words`;
 
 const headerConfig = {
- "Content-Type": "application/json",
- "Access-Control-Allow-Origin": "*",
- Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+ 'Content-Type': 'application/json',
+ 'Access-Control-Allow-Origin': '*',
+ Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
 };
 
 const api = {
  register: async (data: AuthorizationActionCreater) => {
   const response = await fetch(registerUrl, {
-   method: "POST",
+   method: 'POST',
    body: JSON.stringify(data),
    headers: { ...headerConfig },
   });
@@ -35,7 +35,7 @@ const api = {
  },
  login: async (data: AuthorizationActionCreater) => {
   const response = await fetch(loginUrl, {
-   method: "POST",
+   method: 'POST',
    body: JSON.stringify(data),
    headers: { ...headerConfig },
   });
@@ -44,7 +44,7 @@ const api = {
  },
  logout: async () => {
   const response = await fetch(logoutUrl, {
-   method: "POST",
+   method: 'POST',
    headers: { ...headerConfig },
   });
   const details = await response.json();
@@ -53,8 +53,8 @@ const api = {
 
  checkAuth: async () => {
   const response = await fetch(refreshUrl, {
-   method: "POST",
-   body: JSON.stringify({ refreshToken: `${getCookie("refreshToken")}` }),
+   method: 'POST',
+   body: JSON.stringify({ refreshToken: `${getCookie('refreshToken')}` }),
    headers: { ...headerConfig },
   });
   const details = await response.json();
@@ -63,7 +63,7 @@ const api = {
 
  getWords: async (data: getWordsActionCreater) => {
   const response = await fetch(getWordsUrl, {
-   method: "POST",
+   method: 'POST',
    body: JSON.stringify(data),
    headers: { ...headerConfig },
   });
@@ -72,8 +72,10 @@ const api = {
  },
 
  addWord: async (data: addWordActionCreater) => {
+  console.log(data);
+
   const response = await fetch(addWordUrl, {
-   method: "POST",
+   method: 'POST',
    body: JSON.stringify(data),
    headers: { ...headerConfig },
   });
@@ -84,7 +86,7 @@ const api = {
 
  editWord: async (data: editWordActionCreater) => {
   const response = await fetch(editWordUrl, {
-   method: "POST",
+   method: 'POST',
    body: JSON.stringify(data),
    headers: { ...headerConfig },
   });
@@ -94,7 +96,7 @@ const api = {
 
  removeWord: async (data: removeWordActionCreater) => {
   const response = await fetch(removeWordUrl, {
-   method: "POST",
+   method: 'POST',
    body: JSON.stringify(data),
    headers: { ...headerConfig },
   });

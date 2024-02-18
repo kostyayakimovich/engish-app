@@ -1,7 +1,7 @@
-const { ObjectId } = require("mongodb");
-const WordsModel = require("../models/words-model");
-const ApiError = require("../exceptions/api-error");
-const wordsModel = require("../models/words-model");
+const { ObjectId } = require('mongodb');
+const WordsModel = require('../models/words-model');
+const ApiError = require('../exceptions/api-error');
+const wordsModel = require('../models/words-model');
 
 class WordsService {
  async addWord(userId, word, wordTranslate) {
@@ -13,7 +13,7 @@ class WordsService {
    word: word,
    wordTranslate: wordTranslate,
   });
-  return { message: "Word has been added" };
+  return { message: 'Word has been added' };
  }
 
  async removeWord(userId, wordId) {
@@ -21,17 +21,18 @@ class WordsService {
    throw ApiError.WordRemoveError();
   }
   await wordsModel.find({ userId }).deleteOne({ _id: ObjectId(wordId) });
-  return { message: "Word has been removed" };
+  return { message: 'Word has been removed' };
  }
 
  async editWord(userId, wordId, newWord, newWordTranslate) {
   if (!userId || !wordId || !newWord || !newWordTranslate) {
    throw ApiError.WordEditError();
   }
+
   await wordsModel.findOne({ _id: ObjectId(wordId) }).updateOne({
    $set: { word: newWord, wordTranslate: newWordTranslate },
   });
-  return { message: "Word has been changed" };
+  return { message: 'Word has been changed' };
  }
 
  async getWords(userId) {

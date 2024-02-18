@@ -1,0 +1,12 @@
+.modal-word-header {
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ &__icon {
+  cursor: pointer;
+ }
+}
+.modal-word__content {
+ padding-top: 40px;
+ width: 100%;
+}

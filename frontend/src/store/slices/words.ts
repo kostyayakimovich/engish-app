@@ -1,12 +1,19 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
+import { WordsData } from '../models/words.model';
+
+interface WordsState {
+ isLoading: boolean;
+ errorServer: null | string;
+ wordsData: WordsData[];
+}
 
 const wordsSlice = createSlice({
- name: "words",
+ name: 'words',
  initialState: {
   isLoading: false,
   errorServer: null,
-  wordsData: null,
- },
+  wordsData: [],
+ } as WordsState,
  reducers: {
   errorServer: (state, action) => {
    state.errorServer = action.payload;
@@ -15,7 +22,7 @@ const wordsSlice = createSlice({
    state.isLoading = action.payload;
   },
   wordsData: (state, action) => {
-   state.wordsData = action.payload;
+   state.wordsData = Array.isArray(action.payload) ? action.payload : [];
   },
  },
 });

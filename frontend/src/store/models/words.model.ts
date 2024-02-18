@@ -1,14 +1,22 @@
 export enum wordsActionCreaterKeys {
- userId = "userId",
- wordId = "wordId",
- word = "word",
- wordTranslate = "wordTranslate",
- newWord = "newWord",
- newWordTranslate = "newWordTranslate",
+ id = '_id',
+ userId = 'userId',
+ wordId = 'wordId',
+ word = 'word',
+ wordTranslate = 'wordTranslate',
+ newWord = 'newWord',
+ newWordTranslate = 'newWordTranslate',
 }
 
 export interface getWordsActionCreater {
  [wordsActionCreaterKeys.userId]: string;
+}
+
+export interface WordsData {
+ [wordsActionCreaterKeys.id]: string;
+ [wordsActionCreaterKeys.userId]: string;
+ [wordsActionCreaterKeys.word]: string;
+ [wordsActionCreaterKeys.wordTranslate]: string;
 }
 
 export interface addWordActionCreater {
