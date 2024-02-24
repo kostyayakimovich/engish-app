@@ -1,5 +1,7 @@
 import React, { memo, useLayoutEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 import Header from '../../modules/header';
 import Words from '../../modules/words';
 import { wordsActions } from '../../store/actions/wordsActions';
@@ -18,7 +20,9 @@ const Home: React.FunctionComponent = memo(() => {
  return (
   <div className='home'>
    <Header />
-   <Words />
+   <DndProvider backend={HTML5Backend}>
+    <Words />
+   </DndProvider>
   </div>
  );
 });
